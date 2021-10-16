@@ -40,6 +40,7 @@
           <th scope="col">Script</th>
           <th scope="col">Última exec. (UTC)</th>
           <th scope="col">Duração</th>
+          <th scope="col">Mem. Utilizada</th>
           <th scope="col">Req. API</th>
           <th scope="col">Con. SQL</th>
           <th scope="col">Ações</th>
@@ -57,6 +58,7 @@
     }else{
       echo "          <td>" . $result[$key]['duration'] . " segundo(s)</td>\n";
     }
+    echo "          <td>" . $result[$key]['memory'] . " MB</td>\n";
     echo "          <td>" . $result[$key]['api_requests'] . "</td>\n";
     echo "          <td>" . $result[$key]['sql_requests'] . "</td>\n";
     if($result[$key]['do_manual']==1){
