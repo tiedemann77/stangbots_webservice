@@ -76,7 +76,7 @@
     <div id="sucess" class="alert alert-success" role="alert" hidden></div>
     <footer class="footer">
       <div class="container">
-        Bot's <a href="https://github.com/tiedemann77/stangbots" class="link-success" target="_blank">source code</a> on GitHub! This webservice <a href="https://github.com/tiedemann77/stangbots_webservice" target="_blank" class="link-success">source code</a> on GitHub! Both under MIT Licence. As always,
+        Bot's <a href="https://github.com/tiedemann77/stangbots" class="link-success" target="_blank">source code</a> on GitHub! This webservice <a href="https://github.com/tiedemann77/stangbots_webservice" target="_blank" class="link-success">source code</a> on GitHub! Both under MIT License. As always,
         <span class="text-muted center"><a href="https://wikitech.wikimedia.org/wiki/Portal:Toolforge" target="_blank"><img src="https://tools-static.wmflabs.org/toolforge/banners/Powered-by-Toolforge-button.png" class="rounded" alt="Powered by Wikimedia Toolforge"></a></span>
       </div>
     </footer>
