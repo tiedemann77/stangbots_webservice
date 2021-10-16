@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Stangbots</title>
+    <!--Bootstrap CSS-->
+    <link href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        text-align: center;
+      }
+      p {
+        font-family: verdana;
+        font-size: 18px;
+      }
+      .scripts, .descriptions{
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        background-color: #b3c2ff;
+      }
+      .scripts{
+        font-weight: bold;
+      }
+      .back{
+        background-color: #e6ebff;
+      }
+      .line{
+        background-color: #9fdfbe;
+        font-weight: bold;
+      }
+      a:link, a:visited{
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="back">
+      <h1>Stangbots</h1>
+      <p class="small">Toolforge tool for bots operated by <a href="https://meta.wikimedia.org/wiki/User:Stanglavine" class="link-success" target="_blank">[[User:Stanglavine]]</a> on the Portuguese Wikipedia.
+      <a href="https://meta.wikimedia.org/wiki/Special:EmailUser/Stanglavine" class="link-success" target="_blank">Contact the maintainer</a> if you have any question.</p>
+      <div class="line">***</div>
+      <p>
+        <h4>Scripts</h4>
+        Essa tabela descreve todos os script atualmente em execução pelo projeto Stangbots. Mais informações no <a href="/dashboard" class="link-success" target="_blank">painel de controle</a>.
+      </p>
+      <table class="table">
+        <tr>
+          <td class="col-sm-2"></td>
+          <td class="col-sm-3" style="background-color: #8099ff;">
+            <div class="scripts">Stangbot - Script 1</div>
+            <div class="scripts">Stangbot - Script 2</div>
+            <div class="scripts">Stangbot - Script 3</div>
+            <div class="scripts">Stangbot - Script 4</div>
+            <div class="scripts">RenomeiaBot - Script 1</div>
+            <div class="scripts">VerificaBot - Script 1</div>
+            <div class="scripts">VerificaBot - Script 2</div>
+            <div class="scripts">VerificaBot - Script 3</div>
+          </td>
+          <td class="col-sm-5">
+            <div class="descriptions border-bottom border-secondary">Atualiza o número de pedidos em aberto</div>
+            <div class="descriptions border-bottom border-secondary">Atualiza estatísticas sobre administradores</div>
+            <div class="descriptions border-bottom border-secondary">(Wikidata) limpa a página de testes</div>
+            <div class="descriptions border-bottom border-secondary">Atualiza estatísticas sobre ficheiros</div>
+            <div class="descriptions border-bottom border-secondary">Processa pedidos de renomeação</div>
+            <div class="descriptions border-bottom border-secondary">Remove pedidos concluídos de [[WP:PV]]</div>
+            <div class="descriptions border-bottom border-secondary">Remove pedidos antigos de [[WP:PV/Recentes]]</div>
+            <div class="descriptions border-bottom border-secondary">Aplica {{subst:}} em arquivos de [[WP:PV]]</div>
+          </td>
+          <td class="col-sm-2"></td>
+        </tr>
+      </table>
+      <footer class="footer">
+        <div class="container">
+          Bot's <a href="https://github.com/tiedemann77/stangbots" class="link-success" target="_blank">source code</a> on GitHub! This webservice <a href="https://github.com/tiedemann77/stangbots_webservice" target="_blank" class="link-success">source code</a> on GitHub! Both under MIT Licence. As always,
+          <span class="text-muted center"><a href="https://wikitech.wikimedia.org/wiki/Portal:Toolforge" target="_blank"><img src="https://tools-static.wmflabs.org/toolforge/banners/Powered-by-Toolforge-button.png" class="rounded" alt="Powered by Wikimedia Toolforge"></a></span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
