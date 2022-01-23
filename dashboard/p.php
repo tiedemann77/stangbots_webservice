@@ -18,6 +18,7 @@
       elseif($m_script_name==="Script 2"){$m_script = __DIR__ . "/../../stangbots/stangbot/script2.php";}
       elseif($m_script_name==="Script 3"){$m_script = __DIR__ . "/../../stangbots/stangbot/script3.php";}
       elseif($m_script_name==="Script 4"){$m_script = __DIR__ . "/../../stangbots/stangbot/script4.php";}
+      elseif($m_script_name==="mr-js-css"){$m_script = __DIR__ . "/../../stangbots/stangbot/mr-js-css.php";}
       else{
         echo("Script inválido.");
         exit();
