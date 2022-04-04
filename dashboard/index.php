@@ -62,7 +62,7 @@
     echo "          <td>" . $result[$key]['api_requests'] . "</td>\n";
     echo "          <td>" . $result[$key]['sql_requests'] . "</td>\n";
     if($result[$key]['do_manual']==1){
-      if($result[$key]['bot']=="VerificaBot"&&($result[$key]['script_name']=="Script 2"||$result[$key]['script_name']=="Script 3"||$result[$key]['script_name']=="Script 4")){
+      if(($result[$key]['bot']=="VerificaBot"&&($result[$key]['script_name']=="Script 2"||$result[$key]['script_name']=="Script 3"||$result[$key]['script_name']=="Script 4"))||($result[$key]['bot']=="Stangbot"&&$result[$key]['script_name']=="urc-warn")){
         echo '          <td><input type="button" class="btn btn-dark" value="Indisponível" disabled></td>';
       }else{
         echo '          <td><input type="button" id="button' . $key . '" onclick="processForm(' . "'" . 'button' . $key . "'," . "'"  . $result[$key]['script_name'] . "'" . ',' . "'" . $result[$key]['bot'] . "'" . ')" class="btn btn-success" value="Rodar"></td>';
