@@ -14,25 +14,25 @@
   // Checagem 2: se correspondem a um script válido
   switch ($m_bot) {
     case 'Stangbot':
-      if($m_script_name==="Script 1"){$m_script = __DIR__ . "/../../stangbots/stangbot/script1.php";}
-      elseif($m_script_name==="Script 2"){$m_script = __DIR__ . "/../../stangbots/stangbot/script2.php";}
-      elseif($m_script_name==="Script 3"){$m_script = __DIR__ . "/../../stangbots/stangbot/script3.php";}
-      elseif($m_script_name==="Script 4"){$m_script = __DIR__ . "/../../stangbots/stangbot/script4.php";}
-      elseif($m_script_name==="mr-js-css"){$m_script = __DIR__ . "/../../stangbots/stangbot/mr-js-css.php";}
+      if($m_script_name==="Script 1"){$m_script = __DIR__ . "/../../stangbots/scripts/stangbot/script1.php";}
+      elseif($m_script_name==="Script 2"){$m_script = __DIR__ . "/../../stangbots/scripts/stangbot/script2.php";}
+      elseif($m_script_name==="Script 3"){$m_script = __DIR__ . "/../../stangbots/scripts/stangbot/script3.php";}
+      elseif($m_script_name==="Script 4"){$m_script = __DIR__ . "/../../stangbots/scripts/stangbot/script4.php";}
+      elseif($m_script_name==="mr-js-css"){$m_script = __DIR__ . "/../../stangbots/scripts/stangbot/mr-js-css.php";}
       else{
         echo("Script inválido.");
         exit();
       }
     break;
     case 'RenomeiaBot':
-      if($m_script_name==="Script 1"){$m_script = __DIR__ . "/../../stangbots/renomeiabot/script1.php";}
+      if($m_script_name==="Script 1"){$m_script = __DIR__ . "/../../stangbots/scripts/renomeiabot/script1.php";}
       else{
         echo("Script inválido.");
         exit();
       }
     break;
     case 'VerificaBot':
-      if($m_script_name==="Script 1"){$m_script = __DIR__ . "/../../stangbots/verificabot/script1.php";}
+      if($m_script_name==="Script 1"){$m_script = __DIR__ . "/../../stangbots/scripts/verificabot/script1.php";}
       else{
         echo("Script inválido.");
         exit();
