@@ -50,22 +50,22 @@
 <?php
   foreach ($result as $key => $value) {
     echo "        <tr>\n";
-    echo "          <td>" . $result[$key]['bot'] . "</td>\n";
-    echo "          <td>" . $result[$key]['script_name'] . "</td>\n";
-    echo "          <td>" . $result[$key]['last'] . "</td>\n";
-    if($result[$key]['duration']==0){
+    echo "          <td>" . $value['bot'] . "</td>\n";
+    echo "          <td>" . $value['script_name'] . "</td>\n";
+    echo "          <td>" . $value['last'] . "</td>\n";
+    if($value['duration']==0){
       echo "          <td>menos de 1 segundo</td>\n";
     }else{
-      echo "          <td>" . $result[$key]['duration'] . " segundo(s)</td>\n";
+      echo "          <td>" . $value['duration'] . " segundo(s)</td>\n";
     }
-    echo "          <td>" . $result[$key]['memory'] . " MB</td>\n";
-    echo "          <td>" . $result[$key]['api_requests'] . "</td>\n";
-    echo "          <td>" . $result[$key]['sql_requests'] . "</td>\n";
-    if($result[$key]['do_manual']==1){
-      if(($result[$key]['bot']=="VerificaBot"&&($result[$key]['script_name']=="Script 2"||$result[$key]['script_name']=="Script 3"||$result[$key]['script_name']=="Script 4"))||($result[$key]['bot']=="Stangbot"&&($result[$key]['script_name']=="urc-warn"||$result[$key]['script_name']=="get-electorate"||$result[$key]['script_name']=="set-electorate"||$result[$key]['script_name']=="get-electorate-csv-to-db"))){
+    echo "          <td>" . $value['memory'] . " MB</td>\n";
+    echo "          <td>" . $value['api_requests'] . "</td>\n";
+    echo "          <td>" . $value['sql_requests'] . "</td>\n";
+    if($value['do_manual']==1){
+      if(($value['bot']=="VerificaBot"&&($value['script_name']=="Script 2"||$value['script_name']=="Script 3"||$value['script_name']=="Script 4"))||($value['bot']=="Stangbot"&&($value['script_name']=="urc-warn"||$value['script_name']=="get-electorate"||$value['script_name']=="set-electorate"||$value['script_name']=="get-electorate-csv-to-db"))){
         echo '          <td><input type="button" class="btn btn-dark" value="Indisponível" disabled></td>';
       }else{
-        echo '          <td><input type="button" id="button' . $key . '" onclick="processForm(' . "'" . 'button' . $key . "'," . "'"  . $result[$key]['script_name'] . "'" . ',' . "'" . $result[$key]['bot'] . "'" . ')" class="btn btn-success" value="Rodar"></td>';
+        echo '          <td><input type="button" id="button' . $key . '" onclick="processForm(' . "'" . 'button' . $key . "'," . "'"  . $value['script_name'] . "'" . ',' . "'" . $value['bot'] . "'" . ')" class="btn btn-success" value="Rodar"></td>';
       }
     }else{
       echo '          <td><input type="button" class="btn btn-dark" value="Indisponível" disabled></td>';
