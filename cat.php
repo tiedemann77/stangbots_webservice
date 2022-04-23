@@ -85,7 +85,7 @@ foreach ($articles_en as $key => $value) {
   }
 }
 
-$api->url = "https://www.wikidata.org/w/api.php";
+$api->change("https://www.wikidata.org/w/api.php");
 
 $params = [
   'action' => 'wbgetentities',
