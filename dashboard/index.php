@@ -62,7 +62,7 @@
     echo "          <td>" . $value['api_requests'] . "</td>\n";
     echo "          <td>" . $value['sql_requests'] . "</td>\n";
     if($value['do_manual']==1){
-      if(($value['bot']=="VerificaBot"&&($value['script_name']=="Script 2"||$value['script_name']=="Script 3"||$value['script_name']=="Script 4"))||($value['bot']=="Stangbot"&&($value['script_name']=="urc-warn"||$value['script_name']=="get-electorate"||$value['script_name']=="set-electorate"||$value['script_name']=="get-electorate-manual-remote"))){
+      if(($value['bot']=="VerificaBot"&&($value['script_name']=="Script 2"||$value['script_name']=="Script 3"||$value['script_name']=="Script 4"))||($value['bot']=="Stangbot"&&($value['script_name']=="urc-warn"||$value['script_name']=="set-electorate"))){
         echo '          <td><input type="button" class="btn btn-dark" value="Indisponível" disabled></td>';
       }else{
         echo '          <td><input type="button" id="button' . $key . '" onclick="processForm(' . "'" . 'button' . $key . "'," . "'"  . $value['script_name'] . "'" . ',' . "'" . $value['bot'] . "'" . ')" class="btn btn-success" value="Rodar"></td>';
