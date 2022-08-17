@@ -52,6 +52,7 @@ $stats = new stats();
 $log = new log($settings['file'], $stats);
 $api = new api($settings['url'], $settings['maxlag'], $log, $stats);
 
+// Obtendo os artigos da categoria
 $params = [
   'action' => 'query',
   'list' => 'categorymembers',
@@ -63,8 +64,9 @@ $params = [
 
 $result = $api->request($params);
 
-$articles_en = $result['query']['categorymembers'];
+$list = $result['query']['categorymembers'];
 
+// Obtendo os itens dos artigos
 $params = [
   'action' => 'query',
   'prop' => 'pageprops',
@@ -72,19 +74,20 @@ $params = [
   'format' => 'json'
 ];
 
-foreach ($articles_en as $key => $value) {
+foreach ($list as $key => $value) {
   $params['titles'] = $value['title'];
   $result = $api->request($params);
   foreach ($result['query']['pages'] as $key2 => $value2) {
     if(isset($result['query']['pages'][$key2]['pageprops']['wikibase_item'])){
-      $articles2[] = [
-        'title' => $articles_en[$key]['title'],
+      $articles[] = [
+        'title_source' => $list[$key]['title'],
         'wikidata' => $result['query']['pages'][$key2]['pageprops']['wikibase_item']
       ];
     }
   }
 }
 
+// Obtendo os sitelinks
 $api->change("https://www.wikidata.org/w/api.php");
 
 $params = [
@@ -92,27 +95,27 @@ $params = [
   'format' => 'json'
 ];
 
-foreach ($articles2 as $key => $value) {
+foreach ($articles as $key => $value) {
   $params['ids'] = $value['wikidata'];
   $result = $api->request($params);
   $count = count($result['entities'][$value['wikidata']]['sitelinks']);
+  // Se tiver igual ou mais que a configuração
   if($count>=$sitelinks){
     if(!isset($result['entities'][$value['wikidata']]['sitelinks']['ptwiki'])){
       if(isset($result['entities'][$value['wikidata']]['labels']['pt']['value'])){
-        $title = $result['entities'][$value['wikidata']]['labels']['pt']['value'];
+        $articles[$key]['title_pt'] = $result['entities'][$value['wikidata']]['labels']['pt']['value'];
       }elseif(isset($result['entities'][$value['wikidata']]['labels']['en']['value'])){
-        $title = $result['entities'][$value['wikidata']]['labels']['en']['value'];
+		$articles[$key]['title_pt'] = $result['entities'][$value['wikidata']]['labels']['en']['value'];
       }else{
-        $title = $articles2[$key]['title'];
+        $articles[$key]['title_pt'] = $articles[$key]['title_source'];
       }
-      $articles3[] = [
-        'title' => $title,
-        'wikidata' => $articles2[$key]['wikidata']
-      ];
-    }
+    }else{
+		unset($articles[$key]);
+	}
   }
 }
 
+// Monta o resultado
 if($wiki=="en"){
   $language = "inglês";
 }else{
@@ -127,10 +130,10 @@ $text = '<p>Resultado para "' . $category . '" (' . $wiki . ') com no mínimo ' 
 !Artigo em ' . $language . '
 |-';
 
-foreach($articles3 as $key => $value){
+foreach($articles as $key => $value){
   $text .= "
-|[[" . $articles3[$key]['title'] . "]]
-|[[:" . $wiki . ":" . $articles3[$key]['title'] . "|" . $articles3[$key]['title'] . "]]
+|[[" . $articles[$key]['title_pt'] . "]]
+|[[:" . $wiki . ":" . $articles[$key]['title_source'] . "|" . $articles[$key]['title_source'] . "]]
 |-";
 }
 
