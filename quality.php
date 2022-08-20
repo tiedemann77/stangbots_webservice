@@ -1,25 +1,14 @@
 <html>
   <div style="text-align: center;">
 	<p><b>FERRAMENTA EXPERIMENTAL</b></p>
-    <p>Esta ferramenta lista artigos de uma dada categoria com uma dada qualidade na Wikipédia em Português, de acordo com a estimativa do ORES.</p>
-    <p>Limite de 500 artigos por categoria, considera apenas a categoria principal (não entra em subcategorias).</p>
+    <p>Esta ferramenta lista artigos de uma dada categoria na Wikipédia em Português, filtrados de acordo com a qualidade estimada pelo ORES.</p>
+    <p>Considera apenas a categoria principal (não entra em subcategorias).</p>
     <br/>
     <form action="/quality.php" type="GET">
       <p>Categoria:</p>
       <input type="text" name="category" <?php if(isset($_GET['category'])){echo 'value="' . $_GET['category'] . '"';}?>>
 	  <br />
 	  <br />
-	  <p>Qualidade:</p>
-      <select type="select" name="quality">
-        <option value="1">1</option>
-        <option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-		<option value="6">6</option>
-      </select>
-      <br/>
-      <br/>
       <input type="submit" value="Enviar">
     </form>
 
@@ -31,13 +20,10 @@ require_once(__DIR__ . "/../stangbots/autoloader.php");
 
 if(isset($_GET['category'])){
   $category = $_GET['category'];
-  if(isset($_GET['quality'])){
-    $quality = $_GET['quality'];
-     run($category,$quality);
-  }
+  run($category);
 }
 
-function run($category,$quality){
+function run($category){
 // Settings
 $settings = [
   'url' => "https://pt.wikipedia.org/w/api.php",
@@ -55,14 +41,29 @@ $params = [
   'action' => 'query',
   'list' => 'categorymembers',
   'cmtitle' => $category,
-  'cmlimit' => '500',
+  'cmlimit' => '10',
   'cmnamespace' => '0',
-  'format' => 'json'
 ];
 
 $result = $api->request($params);
 
-$list = $result['query']['categorymembers'];
+foreach ($result['query']['categorymembers'] as $key => $value){
+	$articles[] = [
+		'title' => $value['title']
+	];
+}
+
+while(isset($result['continue'])){
+	$params['cmcontinue'] = $result['continue']['cmcontinue'];
+	$result = $api->request($params);
+	
+	foreach ($result['query']['categorymembers'] as $key => $value){
+		$articles[] = [
+			'title' => $value['title']
+		];
+	}
+
+}
 
 // Obtendo o id dos artigos
 $params = [
@@ -72,10 +73,10 @@ $params = [
   'rvslots' => 'main',
 ];
 
-$count = count($list);
+$count = count($articles);
 $realized = 0;
 
-foreach ($list as $key => $value) {
+foreach ($articles as $key => $value) {
 	$realized++;
 	if(!isset($params['titles'])&&$realized!=$count){
 		$params['titles'] = $value['title'];
@@ -88,16 +89,20 @@ foreach ($list as $key => $value) {
 		$result = $api->request($params);
 		
 		foreach ($result['query']['pages'] as $key2 => $value2) {
-			$articles[] = [
-			'title' => $result['query']['pages'][$key2]['title'],
-			'revid' => $result['query']['pages'][$key2]['revisions'][0]['revid']
-			];
+			
+			foreach ($articles as $key3 => $value3) {
+				if($value2['title']==$value3['title']){
+					$articles[$key3]['revid'] = $value2['revisions'][0]['revid'];
+				}
+			}
+			
 		}
 		
 		unset($limit);
 		unset($params['titles']);
 	}
 }
+
 
 // Obtém qualidade, ainda improvisado, mas funcional
 $realized = 0;
@@ -134,7 +139,42 @@ foreach ($articles as $key => $value) {
 
 }
 
-$text = '<p>Resultado para "' . $category . '" com qualidade ' . $quality . ':</p>
+$text1 = '<p>Resultado para "' . $category . '" com qualidade 1:</p>
+<textarea rows="30" cols="150">
+{| class="wikitable"
+|+
+!Artigo
+|-';
+
+$text2 = '<p>Resultado para "' . $category . '" com qualidade 2:</p>
+<textarea rows="30" cols="150">
+{| class="wikitable"
+|+
+!Artigo
+|-';
+
+$text3 = '<p>Resultado para "' . $category . '" com qualidade 3:</p>
+<textarea rows="30" cols="150">
+{| class="wikitable"
+|+
+!Artigo
+|-';
+
+$text4 = '<p>Resultado para "' . $category . '" com qualidade 4:</p>
+<textarea rows="30" cols="150">
+{| class="wikitable"
+|+
+!Artigo
+|-';
+
+$text5 = '<p>Resultado para "' . $category . '" com qualidade 5:</p>
+<textarea rows="30" cols="150">
+{| class="wikitable"
+|+
+!Artigo
+|-';
+
+$text6 = '<p>Resultado para "' . $category . '" com qualidade 6:</p>
 <textarea rows="30" cols="150">
 {| class="wikitable"
 |+
@@ -142,19 +182,76 @@ $text = '<p>Resultado para "' . $category . '" com qualidade ' . $quality . ':</
 |-';
 
 foreach($articles as $key => $value){
-	
-if($value['quality']==$quality){
-$text .= "
+	switch($value['quality']){
+		case 1:
+			$text1 .= "
 |[[" . $value['title'] . "]]
 |-";
-}
+			break;
+		case 2:
+			$text2 .= "
+|[[" . $value['title'] . "]]
+|-";
+			break;
+		case 3:
+			$text3 .= "
+|[[" . $value['title'] . "]]
+|-";
+			break;
+		case 4:
+			$text4 .= "
+|[[" . $value['title'] . "]]
+|-";
+			break;
+		case 5:
+			$text5 .= "
+|[[" . $value['title'] . "]]
+|-";
+			break;
+		case 6:
+			$text6 .= "
+|[[" . $value['title'] . "]]
+|-";
+			break;
+		default:
+			$text1 .= "
+|[[" . $value['title'] . "]]
+|-";
+			break;
+	
+	}
 }
 
-  $text .= "
+  $text1 .= "
 |}
 </textarea>";
 
-  echo $text;
+  $text2 .= "
+|}
+</textarea>";
+
+  $text3 .= "
+|}
+</textarea>";
+
+  $text4 .= "
+|}
+</textarea>";
+
+  $text5 .= "
+|}
+</textarea>";
+
+  $text6 .= "
+|}
+</textarea>";
+
+  echo $text1 . '<br />';
+  echo $text2 . '<br />';
+  echo $text3 . '<br />';
+  echo $text4 . '<br />';
+  echo $text5 . '<br />';
+  echo $text6 . '<br />';
 }
 
 ?>
