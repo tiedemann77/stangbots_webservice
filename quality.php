@@ -70,28 +70,68 @@ $params = [
   'prop' => 'revisions',
   'rvprop' => 'ids',
   'rvslots' => 'main',
-  'rvlimit' => '1'
 ];
 
+$count = count($list);
+$realized = 0;
+
 foreach ($list as $key => $value) {
-  $params['titles'] = $value['title'];
-  $result = $api->request($params);
-  foreach ($result['query']['pages'] as $key2 => $value2) {
-      $articles[] = [
-        'title' => $list[$key]['title'],
-        'revid' => $result['query']['pages'][$key2]['revisions'][0]['revid']
-      ];
-    }
-  }
- 
+	$realized++;
+	if(!isset($params['titles'])&&$realized!=$count){
+		$params['titles'] = $value['title'];
+		$limit = 1;
+	}elseif($limit<9&&$realized!=$count){
+		$params['titles'] .= '|' . $value['title'];
+		$limit++;
+	}else{
+		$params['titles'] .= '|' . $value['title'];
+		$result = $api->request($params);
+		
+		foreach ($result['query']['pages'] as $key2 => $value2) {
+			$articles[] = [
+			'title' => $result['query']['pages'][$key2]['title'],
+			'revid' => $result['query']['pages'][$key2]['revisions'][0]['revid']
+			];
+		}
+		
+		unset($limit);
+		unset($params['titles']);
+	}
+}
+
 // Obtém qualidade, ainda improvisado, mas funcional
+$realized = 0;
 foreach ($articles as $key => $value) {
-	$ores = file_get_contents('https://ores.wikimedia.org/v3/scores/ptwiki/' . $value['revid'] . '/articlequality');
+	$realized++;
+	if(!isset($revids)&&$realized!=$count){
+		$revids = $value['revid'];
+		$limit = 1;
+	}elseif($limit<24&&$realized!=$count){
+		$revids .= '|' . $value['revid'];
+		$limit++;
+	}else{
+		$revids .= '|' . $value['revid'];
+		
+		$ores = file_get_contents('https://ores.wikimedia.org/v3/scores/ptwiki/?models=articlequality&revids=' . $revids);
+		
+		$ores = json_decode($ores, TRUE);
+		
+		$ores = $ores['ptwiki']['scores'];
+		
+		foreach ($ores as $key2 => $value2) {
+			
+			foreach ($articles as $key3 => $value3) {
+				if($key2==$value3['revid']){
+					$articles[$key3]['quality'] = $value2['articlequality']['score']['prediction'];
+				}
+			}
+			
+		}
 	
-	$ores = json_decode($ores, TRUE);
-	
-	$articles[$key]['quality'] = $ores['ptwiki']['scores'][$value['revid']]['articlequality']['score']['prediction'];
-	
+		unset($limit);
+		unset($revids);
+	}
+
 }
 
 $text = '<p>Resultado para "' . $category . '" com qualidade ' . $quality . ':</p>
