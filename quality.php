@@ -41,7 +41,7 @@ $params = [
   'action' => 'query',
   'list' => 'categorymembers',
   'cmtitle' => $category,
-  'cmlimit' => '10',
+  'cmlimit' => '500',
   'cmnamespace' => '0',
 ];
 
