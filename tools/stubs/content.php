@@ -1,7 +1,7 @@
     <p>Esta ferramenta lista todos os esboços presentes em uma dada categoria na Wikipédia em Português.</p>
     <p>Considera apenas a categoria principal (não entra em subcategorias).</p>
     <br/>
-    <form action="/stubs.php" type="GET">
+    <form action="" type="GET">
       <p>Categoria:</p>
       <input type="text" name="category" <?php if(isset($_GET['category'])){echo 'value="' . $_GET['category'] . '"';}?>>
 	  <br />
