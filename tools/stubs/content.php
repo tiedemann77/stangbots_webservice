@@ -11,9 +11,7 @@
 
 <?php
 
-//require_once(__DIR__ . "/../stangbots/common.php");
-require_once(__DIR__ . "/../../stangbots/autoloader.php");
-
+require_once(__DIR__ . "/../../../stangbots/autoloader.php");
 
 if(isset($_GET['category'])){
   $category = $_GET['category'];
