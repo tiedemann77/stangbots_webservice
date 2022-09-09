@@ -1,4 +1,3 @@
-<br />
     <p>Esta ferramenta lista artigos de uma dada categoria na enwiki ou eswiki não existentes na ptwiki.</p>
     <p>Pode ser filtrada pelo números de sitelinks do artigo.</p>
     <p>Considera apenas a categoria principal (não entra em subcategorias).</p>
@@ -177,4 +176,3 @@ foreach($articles as $key => $value){
 }
 
 ?>
-<br />
