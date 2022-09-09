@@ -19,6 +19,7 @@ if(isset($_GET['users'])&&isset($_GET['project'])&&isset($_GET['start'])&&isset(
         <input type="text" name="end">
         <p>Projeto:</p>
         <select type="select" name="project">
+          <option value="ptwiki">ptwiki</option>
           <option value="ptwikiquote">ptwikiquote</option>
           <option value="wikidata">wikidata</option>
         </select>
@@ -44,6 +45,8 @@ function run($start,$end,$project,$users){
     $baselink =  "https://pt.wikiquote.org/w/";
   }elseif($project=="wikidata"){
     $baselink =  "https://www.wikidata.org/w/";
+  }elseif($project=="ptwiki"){
+    $baselink =  "https://pt.wikipedia.org/w/";
   }else{
     echo "ERROR: project {$project} not suported.";
     exit();
