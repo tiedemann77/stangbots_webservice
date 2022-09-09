@@ -72,7 +72,7 @@ function run($start,$end,$project,$users){
   $start_link = mb_substr($start, 0, 4) . "-" . mb_substr($start, 4, 2) . "-" . mb_substr($start, 6, 2);
   $end_link = mb_substr($end, 0, 4) . "-" . mb_substr($end, 4, 2) . "-" . mb_substr($end, 6, 2);
 
-  echo '<a href="/tools/whoedited/">VOLTAR</a><br />
+  echo '<a href="/tools/whoedited/">VOLTAR</a><br /><br />
   <p><b>Usuários que editaram entre ' . $start_link . ' e ' . $end_link . ' no projeto ' . $project . ':</b></p>';
 
   foreach ($users as $key => $value) {
