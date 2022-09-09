@@ -1,6 +1,3 @@
-<html>
-  <div style="text-align: center;">
-	<p><b>FERRAMENTA EXPERIMENTAL</b></p>
     <p>Esta ferramenta lista todos os esboços presentes em uma dada categoria na Wikipédia em Português.</p>
     <p>Considera apenas a categoria principal (não entra em subcategorias).</p>
     <br/>
@@ -15,7 +12,7 @@
 <?php
 
 //require_once(__DIR__ . "/../stangbots/common.php");
-require_once(__DIR__ . "/../stangbots/autoloader.php");
+require_once(__DIR__ . "/../../stangbots/autoloader.php");
 
 
 if(isset($_GET['category'])){
@@ -56,7 +53,7 @@ foreach ($result['query']['categorymembers'] as $key => $value){
 while(isset($result['continue'])){
 	$params['cmcontinue'] = $result['continue']['cmcontinue'];
 	$result = $api->request($params);
-	
+
 	foreach ($result['query']['categorymembers'] as $key => $value){
 		$articles[] = [
 			'title' => $value['title']
@@ -80,7 +77,7 @@ foreach ($articles as $key => $value) {
 	}else{
 		$titles[] = $value['title'];
 		$result = $api->getMultipleContent($titles);
-		
+
 		// Escaneando o conteúdo buscando esboços
 		foreach ($result as $key2 => $value2){
 			if(preg_match('/{{(E|e)sboço-/',$value2)){
@@ -89,7 +86,7 @@ foreach ($articles as $key => $value) {
 				];
 			}
 		}
-		
+
 		unset($limit);
 		unset($titles);
 	}
@@ -103,7 +100,7 @@ $text = '<p>Artigos marcados como esboços em "' . $category . '":</p>
 |-';
 
 foreach($stubs as $key => $value){
-	
+
 	$text .= "
 |[[" . $value['title'] . "]]
 |-";
@@ -118,6 +115,3 @@ echo $text . '<br />';
 }
 
 ?>
-
-  </div>
-</html>
