@@ -44,7 +44,7 @@ function run($start,$end,$project,$domain,$users){
   // Settings
   $settings = [
     'maxlag' => 4,
-    'file' => __DIR__ .  "/log.log",
+    'file' => __DIR__ .  "/../../../webservice_logs/log.log"
   ];
 
   if($project=="ptwikiquote"){

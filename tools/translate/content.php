@@ -41,8 +41,7 @@ function run($category,$sitelinks,$wiki){
 $settings = [
   'url' => "https://" . $wiki . ".wikipedia.org/w/api.php",
   'maxlag' => 4,
-  'file' => __DIR__ .  "/log.log",
-  'stats' => array()
+  'file' => __DIR__ .  "/../../../webservice_logs/log.log"
 ];
 
 $stats = new stats();

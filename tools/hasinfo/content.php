@@ -23,7 +23,7 @@ function run($category){
 $settings = [
   'url' => "https://pt.wikipedia.org/w/api.php",
   'maxlag' => 4,
-  'file' => __DIR__ .  "/log.log"
+  'file' => __DIR__ .  "/../../../webservice_logs/log.log"
 ];
 
 $stats = new stats();
