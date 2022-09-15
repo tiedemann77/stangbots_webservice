@@ -5,12 +5,13 @@
 
 require_once(__DIR__ . "/../../../stangbots/autoloader.php");
 
-if(isset($_GET['users'])&&isset($_GET['project'])&&isset($_GET['start'])&&isset($_GET['end'])){
+if(isset($_GET['users'])&&isset($_GET['project'])&&isset($_GET['start'])&&isset($_GET['end'])&&isset($_GET['domain'])){
   $start = $_GET['start'] . "000000";
   $end = $_GET['end'] . "235959";
   $project = $_GET['project'];
+  $domain = $_GET['domain'];
   $users = $_GET['users'];
-  run($start,$end,$project,$users);
+  run($start,$end,$project,$domain,$users);
 }else{
   echo '    <form action="" type="GET">
         <p>Data inicial (formato YYYYMMDD):</p>
@@ -23,6 +24,11 @@ if(isset($_GET['users'])&&isset($_GET['project'])&&isset($_GET['start'])&&isset(
           <option value="ptwikiquote">ptwikiquote</option>
           <option value="wikidata">wikidata</option>
         </select>
+        <p>Domínio:</p>
+        <select type="select" name="domain">
+          <option value="0">(0) Principal</option>
+          <option value="4">(4) Projeto (Wikipédia)</option>
+        </select>
         <p>Nomes de usuário (um por linha):</p>
         <textarea rows="30" cols="100" name="users"></textarea>
         <br/>
@@ -31,7 +37,7 @@ if(isset($_GET['users'])&&isset($_GET['project'])&&isset($_GET['start'])&&isset(
       </form>';
 }
 
-function run($start,$end,$project,$users){
+function run($start,$end,$project,$domain,$users){
 
   require_once(__DIR__ . "/../../../stangbots/autoloader.php");
 
@@ -61,6 +67,7 @@ function run($start,$end,$project,$users){
   $params = [
     "action" => "query",
     "list" => "usercontribs",
+    "ucnamespace" => $domain,
     "uclimit" => "1",
     "ucend" => $start,
     "ucstart" => $end,
@@ -73,14 +80,14 @@ function run($start,$end,$project,$users){
   $end_link = mb_substr($end, 0, 4) . "-" . mb_substr($end, 4, 2) . "-" . mb_substr($end, 6, 2);
 
   echo '<a href="/tools/whoedited/">VOLTAR</a><br /><br />
-  <p><b>Usuários que editaram entre ' . $start_link . ' e ' . $end_link . ' no projeto ' . $project . ':</b></p>';
+  <p><b>Usuários que editaram entre ' . $start_link . ' e ' . $end_link . ' no projeto ' . $project . ' (domínio: ' . $domain . '):</b></p>';
 
   foreach ($users as $key => $value) {
       $params['ucuser'] = $value;
       $result = $api->request($params);
       if(count($result['query']['usercontribs'])>0){
         echo '<br />
-<a href="' . $baselink . 'index.php?title=Special%3AContributions&target=' . $value . '&start=' . $start_link . '&end=' . $end_link . '" target="_BLANK">Contribuições de ' . $value . '</a>
+<a href="' . $baselink . 'index.php?title=Special%3AContributions&target=' . $value . '&namespace=' . $domain . '&start=' . $start_link . '&end=' . $end_link . '" target="_BLANK">Contribuições de ' . $value . '</a>
 <br/>';
       }
 
