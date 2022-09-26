@@ -36,6 +36,7 @@ $articles = $api->pagesFromCategory($category,"0");
 // Obtendo o conteúdo de 10 páginas por vez
 $count = count($articles);
 $realized = 0;
+$stubs = array();
 
 foreach ($articles as $key => $value) {
 	$realized++;
