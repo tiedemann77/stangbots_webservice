@@ -31,33 +31,7 @@ $log = new log($settings['file'], $stats);
 $api = new api($settings['url'], $settings['maxlag'], $log, $stats);
 
 // Obtendo os artigos da categoria
-$params = [
-  'action' => 'query',
-  'list' => 'categorymembers',
-  'cmtitle' => $category,
-  'cmlimit' => '500',
-  'cmnamespace' => '0',
-];
-
-$result = $api->request($params);
-
-foreach ($result['query']['categorymembers'] as $key => $value){
-	$articles[] = [
-		'title' => $value['title']
-	];
-}
-
-while(isset($result['continue'])){
-	$params['cmcontinue'] = $result['continue']['cmcontinue'];
-	$result = $api->request($params);
-
-	foreach ($result['query']['categorymembers'] as $key => $value){
-		$articles[] = [
-			'title' => $value['title']
-		];
-	}
-
-}
+$articles = $api->pagesFromCategory($category,"0");
 
 // Obtendo o conteúdo de 10 páginas por vez
 $count = count($articles);
@@ -66,21 +40,19 @@ $realized = 0;
 foreach ($articles as $key => $value) {
 	$realized++;
 	if(!isset($titles)&&$realized!=$count){
-		$titles[] = $value['title'];
+		$titles[] = $value;
 		$limit = 1;
 	}elseif($limit<9&&$realized!=$count){
-		$titles[] = $value['title'];
+		$titles[] = $value;
 		$limit++;
 	}else{
-		$titles[] = $value['title'];
+		$titles[] = $value;
 		$result = $api->getMultipleContent($titles);
 
 		// Escaneando o conteúdo buscando esboços
 		foreach ($result as $key2 => $value2){
 			if(preg_match('/{{(E|e)sboço-/',$value2)){
-				$stubs[] = [
-					'title' => $key2
-				];
+				$stubs[] = $key2;
 			}
 		}
 
@@ -99,7 +71,7 @@ $text = '<p>Artigos marcados como esboços em "' . $category . '":</p>
 foreach($stubs as $key => $value){
 
 	$text .= "
-|[[" . $value['title'] . "]]
+|[[" . $value . "]]
 |-";
 
 }
