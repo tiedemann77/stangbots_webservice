@@ -134,110 +134,73 @@ foreach ($articles as $key => $value) {
 }
 
 $text1 = '<p>Resultado para "' . $category . '" com qualidade 1:</p>
-<textarea rows="30" cols="150">
-{| class="wikitable"
-|+
-!Artigo
-|-';
+<textarea rows="30" cols="150">';
 
 $text2 = '<p>Resultado para "' . $category . '" com qualidade 2:</p>
-<textarea rows="30" cols="150">
-{| class="wikitable"
-|+
-!Artigo
-|-';
+<textarea rows="30" cols="150">';
 
 $text3 = '<p>Resultado para "' . $category . '" com qualidade 3:</p>
-<textarea rows="30" cols="150">
-{| class="wikitable"
-|+
-!Artigo
-|-';
+<textarea rows="30" cols="150">';
 
 $text4 = '<p>Resultado para "' . $category . '" com qualidade 4:</p>
-<textarea rows="30" cols="150">
-{| class="wikitable"
-|+
-!Artigo
-|-';
+<textarea rows="30" cols="150">';
 
 $text5 = '<p>Resultado para "' . $category . '" com qualidade 5:</p>
-<textarea rows="30" cols="150">
-{| class="wikitable"
-|+
-!Artigo
-|-';
+<textarea rows="30" cols="150">';
 
 $text6 = '<p>Resultado para "' . $category . '" com qualidade 6:</p>
-<textarea rows="30" cols="150">
-{| class="wikitable"
-|+
-!Artigo
-|-';
+<textarea rows="30" cols="150">';
 
 foreach($articles as $key => $value){
 	switch($value['quality']){
 		case 1:
 			$text1 .= "
-|[[" . $value['title'] . "]]
-|-";
+* [[" . $value['title'] . "]]";
 			break;
 		case 2:
 			$text2 .= "
-|[[" . $value['title'] . "]]
-|-";
+* [[" . $value['title'] . "]]";
 			break;
 		case 3:
 			$text3 .= "
-|[[" . $value['title'] . "]]
-|-";
+* [[" . $value['title'] . "]]";
 			break;
 		case 4:
 			$text4 .= "
-|[[" . $value['title'] . "]]
-|-";
+* [[" . $value['title'] . "]]";
 			break;
 		case 5:
 			$text5 .= "
-|[[" . $value['title'] . "]]
-|-";
+* [[" . $value['title'] . "]]";
 			break;
 		case 6:
 			$text6 .= "
-|[[" . $value['title'] . "]]
-|-";
+* [[" . $value['title'] . "]]";
 			break;
 		default:
 			$text1 .= "
-|[[" . $value['title'] . "]]
-|-";
+* [[" . $value['title'] . "]]";
 			break;
 
 	}
 }
 
   $text1 .= "
-|}
 </textarea>";
 
   $text2 .= "
-|}
 </textarea>";
 
   $text3 .= "
-|}
 </textarea>";
 
   $text4 .= "
-|}
 </textarea>";
 
   $text5 .= "
-|}
 </textarea>";
 
   $text6 .= "
-|}
 </textarea>";
 
   echo $text1 . '<br />';
