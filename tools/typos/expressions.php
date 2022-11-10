@@ -1,7 +1,7 @@
 <?php
 
 #De acordo com as configurações do AWB na Wikipédia em Português#
-#Na forma em que estavam em 03h28min de 23 de abril de 2022‎
+#Na forma em que estavam em 03h28min de 23 de abril de 2022‎#
 
 $expressions = array(
   "/\b(S|s)uiç(a|o)\b/",
