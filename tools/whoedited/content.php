@@ -23,11 +23,13 @@ if(isset($_GET['users'])&&isset($_GET['project'])&&isset($_GET['start'])&&isset(
           <option value="ptwiki">ptwiki</option>
           <option value="ptwikiquote">ptwikiquote</option>
           <option value="wikidata">wikidata</option>
+          <option value="commons">commons</option>
         </select>
         <p>Domínio:</p>
         <select type="select" name="domain">
           <option value="0">(0) Principal</option>
           <option value="4">(4) Projeto (Wikipédia)</option>
+          <option value="6">(6) Media</option>
         </select>
         <p>Nomes de usuário (um por linha):</p>
         <textarea rows="30" cols="100" name="users"></textarea>
@@ -52,7 +54,9 @@ function run($start,$end,$project,$domain,$users){
   }elseif($project=="wikidata"){
     $baselink =  "https://www.wikidata.org/w/";
   }elseif($project=="ptwiki"){
-    $baselink =  "https://pt.wikipedia.org/w/";
+    $baselink = "https://pt.wikipedia.org/w/";
+  }elseif($project=="commons"){
+     $baselink = "https://commons.wikimedia.org/w/api.php";
   }else{
     echo "ERROR: project {$project} not suported.";
     exit();
