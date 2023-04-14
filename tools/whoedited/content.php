@@ -27,6 +27,7 @@ if(isset($_GET['users'])&&isset($_GET['project'])&&isset($_GET['start'])&&isset(
         <p>Domínio:</p>
         <select type="select" name="domain">
           <option value="0">(0) Principal</option>
+          <option value="2">(2) Usuário(a)</option>
           <option value="4">(4) Projeto (Wikipédia)</option>
         </select>
         <p>Nomes de usuário (um por linha):</p>
