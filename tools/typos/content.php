@@ -60,7 +60,7 @@ foreach ($articles as $key => $value) {
 			$countTypos = 0;
       			foreach ($expressions as $key3 => $value3){
 			     if(preg_match($value3,$value2)){
-				if($countTypos>4){
+				if($countTypos>3){
 					$countTypos = 0;
 					$stubs[] = $key2;
 		     			break;
