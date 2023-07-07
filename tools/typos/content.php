@@ -57,13 +57,18 @@ foreach ($articles as $key => $value) {
 
 		// Escaneando o conteúdo buscando páginas com erros
 		foreach ($result as $key2 => $value2){
-      foreach ($expressions as $key3 => $value3){
+			$countTypos = 0;
+      			foreach ($expressions as $key3 => $value3){
 			     if(preg_match($value3,$value2)){
-             if($key2!=$stubs[count($stubs)-1]){
-				         $stubs[] = $key2;
-            }
+				if($countTypos>4){
+					$countTypos = 0;
+					$stubs[] = $key2;
+		     			break;
+				}else{
+					$countTypos++;
+				}
 			   }
-      }
+      			}
 		}
 
 		unset($limit);
