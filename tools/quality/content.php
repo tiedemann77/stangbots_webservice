@@ -105,7 +105,7 @@ foreach ($articles as $key => $value) {
 	if(!isset($revids)&&$realized!=$count){
 		$revids = $value['revid'];
 		$limit = 1;
-	}elseif($limit<24&&$realized!=$count){
+	}elseif($limit<19&&$realized!=$count){
 		$revids .= '|' . $value['revid'];
 		$limit++;
 	}else{
