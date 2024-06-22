@@ -1,7 +1,7 @@
 <?php
 
 #De acordo com as configurações do AWB na Wikipédia em Português#
-#Na forma em que estavam em 03h28min de 23 de abril de 2022‎#
+#Na forma em que estavam em 00h48min de 07 de outubro de 2023#
 
 $expressions = array(
   "/\b(S|s)uiç(a|o)\b/",
@@ -44,7 +44,6 @@ $expressions = array(
   "/\b([Vv])iuv[a@](s?)\b/",
   "/\b([Vv])itori[a@](s?)\b/",
   "/\b([Vv])(?:ír[oú]|irú|ir[uo])s\b/",
-  "/\b([Vv])ídeo-?clipe?(s?)\b/",
   "/\b([Vv])e(se|zi)s\b/",
   "/\b([Vv])ari([oa]s)\b/",
   "/\b([Vv])áris([oa])\b/",
@@ -455,7 +454,6 @@ $expressions = array(
   "/\bverç[oõ]es\b/",
   "/\bvestigio(s?)\b/",
   "/\bves\b/",
-  "/\bvideoclip\b/",
   "/\bvideo game\b/",
   "/\bviolencia\b/",
   "/\bwikimapi?a\b/",
@@ -617,7 +615,7 @@ $expressions = array(
   "/\b([μkMGT])p[aA]\b/",
   "/\bK[pP][aA]\b/",
   "/\bt[pP][aA]\b/",
-  "/\b([μmMGT])w\b/",
+  "/\b([μmGT])w\b/",
   "/\b([-0-9]|\s)kw\b/",
   "/\b([μmkMGT])w[bB]\b/",
   "/([^a-záàâãçéêíóôõúü\-])à bordo\b/",
@@ -658,7 +656,6 @@ $expressions = array(
   "/\b([Aa])cesssad([ao](s?))\b/",
   "/\b([Ii]n|)([Aa])cessive(l|is)\b/",
   "/\b([Dd]es|)([Aa])conselhave(l|is)\b/",
-  "/\b([Aa])crean([oa]s?)\b/",
   "/\b([Aa])custica(s?)\b/",
   "/\b([Aa])dmnista(r|ador?)\b/",
   "/\b([Aa])dmnistrativ([ao]s?)\b/",
@@ -780,7 +777,6 @@ $expressions = array(
   "/\b([Cc])emiterio(s?)\b/",
   "/\b([Cc])enario(s?)\b/",
   "/\b([Cc])hamd([oa])\b/",
-  "/\b([Cc])hopp(s?)\b/",
   "/\bxux[uú]\b/",
   "/\bXux[uú]\b/",
   "/\b([Cc])idad(ãe|õe)s\b/",
@@ -972,7 +968,7 @@ $expressions = array(
   "/\b([Gg])rangear\b/",
   "/\b([Gg])ratuíto(s?)\b/",
   "/\b([Gg])rávidade\b/",
-  "/\b([Gg])uiz(a[mr]?|o|an?do|(?:ar)?em)\b/",
+  "/\b([Gg])uiz(a[mr]?|an?do|(?:ar)?em)\b/",
   "/([^a-záàâãçéêíóôõúüH\-])[aàá] muito tempo\b/",
   "/\babilidade(s?)\b/",
   "/\bAbilidade(s?)\b/",
@@ -1125,7 +1121,7 @@ $expressions = array(
   "/\b([Oo])s seu\b/",
   "/\b([Oo])(t|utr)ubro\b/",
   "/\b([Pp])aises\b/",
-  "/\b([Pp])alacio(s?)\b/",
+  "/\b([Pp])alacio\b/",
   "/\b([Pp])alvra(s?)\b/",
   "/\b([Pp])aleolitic([ao]s?)\b/",
   "/\b([Pp])ra([^a-záàâãçéêíóôõúü\-])/",
