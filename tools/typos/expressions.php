@@ -37,7 +37,7 @@ $expressions = array(
   "/\b([Tt])érmina(r|m|)\b/",
   "/\bmini-?s[eé]rie\b/",
   "/\bportugues\b/",
-  "/\bhora(s?)/aula\b/",
+  "/\bhora(s?)aula\b/",
   "/\b([Ss])ubsesp(?:[eé])ci[e@](s?)\b/",
   "/\b([Ss])ub-esp(?:[eé])ci[e@](s?)\b/",
   "/\b([Vv])(?:c|o(?:[çc]e|çê))([^a-záàâãçéêíóôõúü])/",
