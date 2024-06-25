@@ -31,9 +31,9 @@ $settings = [
   'file' => __DIR__ .  "/../../../webservice_logs/log.log"
 ];
 
-$stats = new stats();
-$log = new log($settings['file'], $stats);
-$api = new api($settings['url'], $settings['maxlag'], $log, $stats);
+$stats = new Stats();
+$log = new Log($settings['file'], $stats);
+$api = new Api($settings['url'], $settings['maxlag'], $log, $stats);
 
 // Obtendo os artigos da categoria
 $articles = $api->pagesFromCategory($category,"0");
