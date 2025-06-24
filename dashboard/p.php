@@ -24,13 +24,6 @@
         exit();
       }
     break;
-    case 'RenomeiaBot':
-      if($m_script_name==="Script 1"){$m_script = __DIR__ . "/../../stangbots/scripts/renomeiabot/script1.php";}
-      else{
-        echo("Script inválido.");
-        exit();
-      }
-    break;
     case 'VerificaBot':
       if($m_script_name==="Script 1"){$m_script = __DIR__ . "/../../stangbots/scripts/verificabot/script1.php";}
       else{
