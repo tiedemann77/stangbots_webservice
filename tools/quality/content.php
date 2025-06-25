@@ -1,4 +1,4 @@
-    <p>Esta ferramenta lista artigos de uma dada categoria na Wikipédia em Português, filtrados de acordo com a qualidade estimada pelo ORES.</p>
+    <p>Esta ferramenta lista artigos cuja página de discussão está em uma dada categoria na Wikipédia em Português, filtrados de acordo com a qualidade estimada pelo ORES.</p>
     <p>Considera apenas a categoria principal (não entra em subcategorias).</p>
     <br/>
     <form action="" type="GET">
@@ -30,32 +30,13 @@ $stats = new Stats();
 $log = new Log($settings['file'], $stats);
 $api = new Api($settings['url'], $settings['maxlag'], $log, $stats);
 
-// Obtendo os artigos da categoria
-$params = [
-  'action' => 'query',
-  'list' => 'categorymembers',
-  'cmtitle' => $category,
-  'cmlimit' => '500',
-  'cmnamespace' => '0',
-];
+$result = $api->articlesFromCategoryAtTalkPage($category);
 
-$result = $api->request($params);
+$articles = array();
 
-foreach ($result['query']['categorymembers'] as $key => $value){
-	$articles[] = [
-		'title' => $value['title']
-	];
-}
+foreach( $result as $key => $value ){
 
-while(isset($result['continue'])){
-	$params['cmcontinue'] = $result['continue']['cmcontinue'];
-	$result = $api->request($params);
-
-	foreach ($result['query']['categorymembers'] as $key => $value){
-		$articles[] = [
-			'title' => $value['title']
-		];
-	}
+	$articles[]['title'] = $value;
 
 }
 
