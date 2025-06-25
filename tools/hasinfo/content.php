@@ -1,4 +1,4 @@
-    <p>Esta ferramenta lista todos os artigos presentes em uma dada categoria na Wikipédia em Português que não tem infocaixa ({{Info...}}).</p>
+    <p>Esta ferramenta lista todos os artigos cuja página de discussão está em uma dada categoria na Wikipédia em Português e que não tem infocaixa ({{Info...}}).</p>
     <p>Considera apenas a categoria principal (não entra em subcategorias).</p>
     <br/>
     <form action="" type="GET">
@@ -31,7 +31,7 @@ $log = new Log($settings['file'], $stats);
 $api = new Api($settings['url'], $settings['maxlag'], $log, $stats);
 
 // Obtendo os artigos da categoria
-$articles = $api->pagesFromCategory($category,"0");
+$articles = $api->articlesFromCategoryAtTalkPage($category);
 
 // Obtendo o conteúdo de 10 páginas por vez
 $count = count($articles);
