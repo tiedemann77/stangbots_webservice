@@ -1,11 +1,17 @@
-    <p>Esta ferramenta lista todos os artigos que possuem uma marcação de esboço e cuja página de discussão está em uma dada categoria na Wikipédia em Português.</p>
+    <p>Esta ferramenta lista todos os artigos que possuem uma marcação de esboço e cuja página está em uma dada categoria na Wikipédia em Português.</p>
     <p>Considera apenas a categoria principal (não entra em subcategorias).</p>
     <br/>
     <form action="" type="GET">
       <p>Categoria:</p>
       <input type="text" name="category" <?php if(isset($_GET['category'])){echo 'value="' . $_GET['category'] . '"';}?>>
-	  <br />
-	  <br />
+      <br />
+      <p>Utilizar categorização por página de discussão?</p>
+      <select type="select" name="method">
+          <option value="1">Sim</option>
+          <option value="0">Não</option>
+      </select>
+			<br />
+			<br />
       <input type="submit" value="Enviar">
     </form>
 
@@ -13,12 +19,13 @@
 
 require_once(__DIR__ . "/../../../stangbots/autoloader.php");
 
-if(isset($_GET['category'])){
+if(isset($_GET['category'])&&isset($_GET['method'])){
   $category = $_GET['category'];
-  run($category);
+  $method = $_GET['method'];
+  run($category,$method);
 }
 
-function run($category){
+function run($category,$method){
 // Settings
 $settings = [
   'url' => "https://pt.wikipedia.org/w/api.php",
@@ -31,7 +38,11 @@ $log = new Log($settings['file'], $stats);
 $api = new Api($settings['url'], $settings['maxlag'], $log, $stats);
 
 // Obtendo os artigos da categoria
-$articles = $api->articlesFromCategoryAtTalkPage($category);
+if($method==1){
+	$articles = $api->articlesFromCategoryAtTalkPage($category);
+}else{
+	$articles = $api->pagesFromCategory($category,0);
+}
 
 // Obtendo o conteúdo de 10 páginas por vez
 $count = count($articles);
