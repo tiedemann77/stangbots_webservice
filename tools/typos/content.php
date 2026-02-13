@@ -1,12 +1,19 @@
-    <p>Esta ferramenta lista todos os artigos com erros comuns (typos) e cuja página de discussão está em uma dada categoria na Wikipédia em Português.</p>
+    <p>Esta ferramenta lista todos os artigos com erros comuns (typos) inseridos em uma dada categoria na Wikipédia em Português.</p>
     <p>AVISO: esta ferramenta é lenta.</p>
     <p>Considera apenas a categoria principal (não entra em subcategorias).</p>
     <br/>
     <form action="" type="GET">
       <p>Categoria:</p>
       <input type="text" name="category" <?php if(isset($_GET['category'])){echo 'value="' . $_GET['category'] . '"';}?>>
-	  <br />
-	  <br />
+      <br />
+      <br />
+      <p>Utilizar categorização por página de discussão?</p>
+      <select type="select" name="method">
+          <option value="yes">Sim</option>
+          <option value="no" <?php if(isset($_GET['method'])&&$_GET['method']=="no"){echo 'selected';} ?>>Não</option>
+      </select>
+			<br />
+			<br />
       <input type="submit" value="Enviar">
     </form>
 
@@ -15,12 +22,13 @@
 require_once(__DIR__ . "/../../../stangbots/autoloader.php");
 require_once(__DIR__ . "/expressions.php");
 
-if(isset($_GET['category'])){
+if(isset($_GET['category'])&&isset($_GET['method'])){
   $category = $_GET['category'];
-  run($category);
+  $method = $_GET['method'];
+  run($category,$method);
 }
 
-function run($category){
+function run($category,$method){
 
 global $expressions;
 
@@ -36,7 +44,11 @@ $log = new Log($settings['file'], $stats);
 $api = new Api($settings['url'], $settings['maxlag'], $log, $stats);
 
 // Obtendo os artigos da categoria
-$articles = $api->articlesFromCategoryAtTalkPage($category);
+if($method=="yes"){
+	$articles = $api->articlesFromCategoryAtTalkPage($category);
+}else{
+	$articles = $api->pagesFromCategory($category,0);
+}
 
 // Obtendo o conteúdo de 10 páginas por vez
 $count = count($articles);
