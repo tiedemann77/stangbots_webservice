@@ -5,13 +5,6 @@
     <form action="" type="GET">
       <p>Categoria:</p>
       <input type="text" name="category" <?php if(isset($_GET['category'])){echo 'value="' . $_GET['category'] . '"';}?>>
-      <br />
-      <br />
-      <p>Utilizar categorização por página de discussão?</p>
-      <select type="select" name="method">
-          <option value="yes">Sim</option>
-          <option value="no" <?php if(isset($_GET['method'])&&$_GET['method']=="no"){echo 'selected';} ?>>Não</option>
-      </select>
       <select type="select" name="wiki">
         <option value="en">enwiki</option>
         <option value="es">eswiki</option>
@@ -25,7 +18,16 @@
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
-      </select><br/><br/>
+      </select>
+      <br />
+      <br />
+      <p>Utilizar categorização por página de discussão?</p>
+      <select type="select" name="method">
+          <option value="yes">Sim</option>
+          <option value="no" <?php if(isset($_GET['method'])&&$_GET['method']=="no"){echo 'selected';} ?>>Não</option>
+      </select>
+      <br/>
+      <br/>
       <input type="submit" value="Enviar">
     </form>
 <?php
