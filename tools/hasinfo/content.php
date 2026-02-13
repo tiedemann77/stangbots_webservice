@@ -4,6 +4,13 @@
     <form action="" type="GET">
       <p>Categoria:</p>
       <input type="text" name="category" <?php if(isset($_GET['category'])){echo 'value="' . $_GET['category'] . '"';}?>>
+      <br />
+      <br />
+      <p>Utilizar categorização por página de discussão?</p>
+      <select type="select" name="method">
+          <option value="yes">Sim</option>
+          <option value="no" <?php if(isset($_GET['method'])&&$_GET['method']=="no"){echo 'selected';} ?>>Não</option>
+      </select>
 	  <br />
 	  <br />
       <input type="submit" value="Enviar">
@@ -13,12 +20,13 @@
 
 require_once(__DIR__ . "/../../../stangbots/autoloader.php");
 
-if(isset($_GET['category'])){
+if(isset($_GET['category'])&&isset($_GET['method'])){
   $category = $_GET['category'];
-  run($category);
+  $method = $_GET['method'];
+  run($category,$method);
 }
 
-function run($category){
+function run($category,$method){
 // Settings
 $settings = [
   'url' => "https://pt.wikipedia.org/w/api.php",
@@ -31,7 +39,11 @@ $log = new Log($settings['file'], $stats);
 $api = new Api($settings['url'], $settings['maxlag'], $log, $stats);
 
 // Obtendo os artigos da categoria
-$articles = $api->articlesFromCategoryAtTalkPage($category);
+if($method=="yes"){
+	$articles = $api->articlesFromCategoryAtTalkPage($category);
+}else{
+	$articles = $api->pagesFromCategory($category,0);
+}
 
 // Obtendo o conteúdo de 10 páginas por vez
 $count = count($articles);
