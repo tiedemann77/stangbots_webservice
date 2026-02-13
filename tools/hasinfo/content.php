@@ -1,4 +1,4 @@
-    <p>Esta ferramenta lista todos os artigos cuja página de discussão está em uma dada categoria na Wikipédia em Português e que não tem infocaixa ({{Info...}}).</p>
+    <p>Esta ferramenta lista todos os artigos inseridos em dada categoria na Wikipédia em Português e que não tem infocaixa ({{Info...}}).</p>
     <p>Considera apenas a categoria principal (não entra em subcategorias).</p>
     <br/>
     <form action="" type="GET">
