@@ -1,9 +1,16 @@
-    <p>Esta ferramenta lista artigos cuja página de discussão está em uma dada categoria na Wikipédia em Português, filtrados de acordo com a qualidade estimada pelo ORES.</p>
+    <p>Esta ferramenta lista artigos em dada categoria na Wikipédia em Português, filtrados de acordo com a qualidade estimada pelo ORES.</p>
     <p>Considera apenas a categoria principal (não entra em subcategorias).</p>
     <br/>
     <form action="" type="GET">
       <p>Categoria:</p>
       <input type="text" name="category" <?php if(isset($_GET['category'])){echo 'value="' . $_GET['category'] . '"';}?>>
+      <br />
+      <br />
+      <p>Utilizar categorização por página de discussão?</p>
+      <select type="select" name="method">
+          <option value="yes">Sim</option>
+          <option value="no" <?php if(isset($_GET['method'])&&$_GET['method']=="no"){echo 'selected';} ?>>Não</option>
+      </select>
 	  <br />
 	  <br />
       <input type="submit" value="Enviar">
@@ -13,12 +20,13 @@
 
 require_once(__DIR__ . "/../../../stangbots/autoloader.php");
 
-if(isset($_GET['category'])){
+if(isset($_GET['category'])&&isset($_GET['method'])){
   $category = $_GET['category'];
-  run($category);
+  $method = $_GET['method'];
+  run($category,$method);
 }
 
-function run($category){
+function run($category,$method){
 // Settings
 $settings = [
   'url' => "https://pt.wikipedia.org/w/api.php",
@@ -30,7 +38,12 @@ $stats = new Stats();
 $log = new Log($settings['file'], $stats);
 $api = new Api($settings['url'], $settings['maxlag'], $log, $stats);
 
-$result = $api->articlesFromCategoryAtTalkPage($category);
+// Obtendo os artigos da categoria
+if($method=="yes"){
+	$result = $api->articlesFromCategoryAtTalkPage($category);
+}else{
+	$result = $api->pagesFromCategory($category,0);
+}
 
 $articles = array();
 
