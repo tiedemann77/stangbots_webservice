@@ -5,10 +5,11 @@
       <p>Categoria:</p>
       <input type="text" name="category" <?php if(isset($_GET['category'])){echo 'value="' . $_GET['category'] . '"';}?>>
       <br />
+      <br />
       <p>Utilizar categorização por página de discussão?</p>
       <select type="select" name="method">
-          <option value="1">Sim</option>
-          <option value="0">Não</option>
+          <option value="yes">Sim</option>
+          <option value="no">Não</option>
       </select>
 			<br />
 			<br />
@@ -38,7 +39,7 @@ $log = new Log($settings['file'], $stats);
 $api = new Api($settings['url'], $settings['maxlag'], $log, $stats);
 
 // Obtendo os artigos da categoria
-if($method==1){
+if($method=="yes"){
 	$articles = $api->articlesFromCategoryAtTalkPage($category);
 }else{
 	$articles = $api->pagesFromCategory($category,0);
