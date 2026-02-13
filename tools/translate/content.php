@@ -5,6 +5,13 @@
     <form action="" type="GET">
       <p>Categoria:</p>
       <input type="text" name="category" <?php if(isset($_GET['category'])){echo 'value="' . $_GET['category'] . '"';}?>>
+      <br />
+      <br />
+      <p>Utilizar categorização por página de discussão?</p>
+      <select type="select" name="method">
+          <option value="yes">Sim</option>
+          <option value="no" <?php if(isset($_GET['method'])&&$_GET['method']=="no"){echo 'selected';} ?>>Não</option>
+      </select>
       <select type="select" name="wiki">
         <option value="en">enwiki</option>
         <option value="es">eswiki</option>
@@ -25,18 +32,19 @@
 
 require_once(__DIR__ . "/../../../stangbots/autoloader.php");
 
-if(isset($_GET['category'])){
+if(isset($_GET['category'])&&isset($_GET['method'])){
   $category = $_GET['category'];
+  $method = $_GET['method'];
   if(isset($_GET['sitelinks'])){
     $sitelinks = $_GET['sitelinks'];
     if(isset($_GET['wiki'])){
       $wiki = $_GET['wiki'];
-      run($category,$sitelinks,$wiki);
+      run($category,$method,$sitelinks,$wiki);
     }
   }
 }
 
-function run($category,$sitelinks,$wiki){
+function run($category,$method,$sitelinks,$wiki){
 // Settings
 $settings = [
   'url' => "https://" . $wiki . ".wikipedia.org/w/api.php",
@@ -50,7 +58,11 @@ $api = new Api($settings['url'], $settings['maxlag'], $log, $stats);
 
 $result = $api->request($params);
 
-$list = $api->pagesFromCategory($category,"0");
+if($method=="yes"){
+  $list = $api->articlesFromCategoryAtTalkPage($category);
+}else{
+  $list = $api->pagesFromCategory($category,0);
+}
 
 // Obtendo os itens dos artigos
 $params = [
