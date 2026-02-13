@@ -9,7 +9,7 @@
       <p>Utilizar categorização por página de discussão?</p>
       <select type="select" name="method">
           <option value="yes">Sim</option>
-          <option value="no" <?php if(isset($_GET['method'])&&$_GET['method']=="no"){echo 'selected"'} ?>>Não</option>
+          <option value="no" <?php if(isset($_GET['method'])&&$_GET['method']=="no"){echo 'selected';} ?>>Não</option>
       </select>
 			<br />
 			<br />
