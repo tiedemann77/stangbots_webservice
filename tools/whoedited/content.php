@@ -59,7 +59,7 @@ function run($start,$end,$project,$domain,$users){
   }elseif($project=="commons"){
     $baselink = "https://commons.wikimedia.org/w/";
   }else{
-    echo "ERROR: project {$project} not suported.";
+    echo "ERROR: project {$project} not supported.";
     exit();
   }
 
